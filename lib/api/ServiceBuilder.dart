@@ -19,7 +19,7 @@ class ServiceBuilder {
     
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
-        options.baseUrl = "https://hr-v2.tinasoft.vn/api/v1";
+        options.baseUrl = "http://18.141.247.31:9001/api/v1";
         options.headers['Authorization'] = "Bearer "  + _sharePrefs.accessToken;
         return handler.next(options);
       },

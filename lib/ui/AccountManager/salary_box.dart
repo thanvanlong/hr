@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:untitled/api/ServiceBuilder.dart';
 import 'package:untitled/model/Salary.dart';
 import 'package:dio/dio.dart';
+import 'package:untitled/ui/AccountManager/accountDetail.dart';
 import 'package:untitled/ui/loginScreen/login_screen.dart';
 
 class SalaryBox extends StatefulWidget {
@@ -17,8 +18,9 @@ class SalaryBox extends StatefulWidget {
 
 class _SalaryBoxState extends State<SalaryBox> {
   void goToDetailSalary () {
-    Route route = MaterialPageRoute(builder: (context) => LoginScreen(), );
-    Navigator.of(context).push(route);
+    Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const AccountDetail()));
   }
   @override
   Widget build(BuildContext context) {
