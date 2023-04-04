@@ -8,6 +8,8 @@ import 'package:untitled/ui/Infomation/info.dart';
 import 'package:untitled/ui/MonthlySalary/monthlySalary.dart';
 import 'package:untitled/ui/NavigationDrawer/navigationDrawer.dart';
 
+import '../test.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

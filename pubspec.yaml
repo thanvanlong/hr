@@ -44,6 +44,7 @@ dependencies:
   get: ^4.6.5
   retrofit: ^3.3.1
   dio_logging_interceptor: ^1.0.1
+  horizontal_data_table: ^1.0.6+2
 
 dev_dependencies:
   retrofit_generator: '>=4.0.0 <5.0.0'
