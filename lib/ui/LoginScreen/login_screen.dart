@@ -38,14 +38,15 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
   }
   Future<void> _login() async {
-    ResponseDTO responseDTO = await RestClient(_dio).login(new Auth("superadmin@superadmin.com", "123123"));
+    ResponseDTO<User> responseDTO = await RestClient(_dio).login(new Auth("superadmin@superadmin.com", "123123"));
     if (responseDTO.success) {
-      User user = User.fromJson(responseDTO.data);
+      User user = responseDTO.data!;
       _sharePrefs.setAccessToken(user.accessToken);
       _sharePrefs.setUser(user);
       setState(() {
         if (typeInput == 0) {
           //Luồng đăng nhập
+          print("go to home");
           Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
         } else if (typeInput == 1) {
           //Nhập Email

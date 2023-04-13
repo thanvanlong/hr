@@ -7,6 +7,9 @@ import 'package:untitled/ui/AppBar/appBar.dart';
 import 'package:untitled/ui/Infomation/info.dart';
 import 'package:untitled/ui/MonthlySalary/monthlySalary.dart';
 import 'package:untitled/ui/NavigationDrawer/navigationDrawer.dart';
+import 'package:untitled/ui/Screen/EventScreen/event_screen.dart';
+
+import '../Screen/LetterLeaveScreen/letter_leave_screen.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -17,7 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var currentPage = DrawerSections.account;
+  var currentPage = DrawerSections.eventCompany;
   @override
   Widget build(BuildContext context) {
     var container;
@@ -27,6 +30,10 @@ class _HomePageState extends State<HomePage> {
       container = MonthlySalary();
     } else if (currentPage == DrawerSections.accountInfo) {
       container = Info();
+    } else if (currentPage == DrawerSections.resignationform) {
+      container = LetterLeaveScreen();
+    } else if (currentPage == DrawerSections.eventCompany) {
+      container = EventScreen();
     }
     return Scaffold(
       appBar: AppBarCustom(),
