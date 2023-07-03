@@ -4,6 +4,7 @@ import 'package:untitled/api/HrService.dart';
 import 'package:untitled/api/ServiceBuilder.dart';
 import 'package:untitled/model/Salary.dart';
 import 'package:untitled/ui/AccountManager/salary_box.dart';
+import 'package:untitled/ui/Components/drop_down.dart';
 
 import '../../model/User.dart';
 
@@ -15,9 +16,9 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
-  List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+  List<String> list = <String>['2022', '2023'];
   // Salary _salary = new Salary('totalSalary', 'bonusProj', 'OTSalary', 'onsiteSalary', 'discountSalary', 'salaryAfterDeduction', 'salaryBeforeDeduction');
-  String dropdownValue = 'One';
+  String dropdownValue = '2023';
   Dio dio = new ServiceBuilder().getService();
 
 
@@ -28,24 +29,20 @@ class _AccountState extends State<Account> {
     super.initState();
   }
 
-
-  Future<User> _getMe () async {
-    ResponseDTO responseDTO = await RestClient(dio).getMe();
-    User user = User.fromJson(responseDTO.data);
-    return user;
-  }
-
   Future<List<Salary>> _getTotalSalaryMe() async {
-    DateTime now = new DateTime.now();
-    ResponseDTO responseDTO = await RestClient(dio).getTotalSalaryMe({"date_year":now.year.toString()});
-    if (responseDTO.data is List) {
-      List<Salary> list = (responseDTO.data as List).map((e) => Salary.fromJson(e)).toList();
-      list.sort((a, b) => a.date.compareTo(b.date));
-      return list;
+    ResponseDTO<List<Salary>> responseDTO = await RestClient(dio).getTotalSalaryMe({"date_year": dropdownValue});
+    if (responseDTO.success) {
+      return responseDTO.data!;
     }
 
 
     return List.empty();
+  }
+
+  void handleChange(String val, String type) {
+    setState(() {
+      dropdownValue = val;
+    });
   }
 
   @override
@@ -60,38 +57,7 @@ class _AccountState extends State<Account> {
         children: [
           Flexible(
             flex: 2,
-              child: Container(
-                width: 150,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(8.0)),
-                ),
-                child: DropdownButton<String>(
-                  value: dropdownValue,
-                  isExpanded: true,
-                  icon: Icon(Icons.keyboard_arrow_down_outlined),
-                  elevation: 1,
-                  style: const TextStyle(color: Colors.black),
-                  underline: Container(
-                    height: 0,
-                  ),
-                  onChanged: (String? value) {
-                    setState(() {
-                      dropdownValue = value!;
-                    });
-                  },
-                  items: list.map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 18),
-                          child: Text(value),
-                        ),
-                    );
-                  }).toList()
-                ),
-              )
+              child: new Dropdown(list: list, currVal: dropdownValue, handleChange: handleChange, id: "Year")
           ),
           // FutureBuilder(
           //   future: _getMe(),

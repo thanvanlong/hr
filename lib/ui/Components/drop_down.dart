@@ -40,7 +40,7 @@ class _DropdownState extends State<Dropdown> {
           },
           items: widget.list.map((String value) {
             return DropdownMenuItem<String>(
-              value: value,
+              value: value.isNotEmpty ? value : "",
               child: GestureDetector(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),

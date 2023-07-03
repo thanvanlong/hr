@@ -9,7 +9,7 @@ import '../model/User.dart';
 
 part 'HrService.g.dart';
 
-@RestApi(baseUrl: "https://5d42a6e2bc64f90014a56ca0.mockapi.io/api/v1/")
+@RestApi(baseUrl: "http://18.141.247.31:9001/api/v1")
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
@@ -30,6 +30,9 @@ abstract class RestClient {
 
   @DELETE("/letter-leave/{id}")
   Future<ResponseDTO<LetterLeave>> deleteLetterLeave(@Path("id") int id);
+
+  @GET("/event")
+  Future<ResponseDTO<List<Event>>> getEvent(@Query("sort[]") String filter);
 
 }
 

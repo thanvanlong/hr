@@ -55,7 +55,7 @@ class _LetterLeaveScreenState extends State<LetterLeaveScreen> {
         break;
       case "Month":
         setState(() {
-          curMonth: val;
+          curMonth = val;
         });
         break;
     }
